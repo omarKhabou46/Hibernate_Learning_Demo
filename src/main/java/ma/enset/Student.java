@@ -1,16 +1,36 @@
 package ma.enset;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Cacheable
 public class Student {
     @Id
     private int id;
     private String name;
     private int age;
+//    @OneToMany(mappedBy = "student")
+//    private List<Adresse> adresse= new ArrayList<>();
+    @OneToOne
+    private Adresse adresse;
+
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
+//    public List<Adresse> getAdresse() {
+//        return adresse;
+//    }
+//
+//    public void setAdresse(List<Adresse> adresse) {
+//        this.adresse = adresse;
+//    }
 
     public int getId() {
         return id;
@@ -42,6 +62,7 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", adresse=" + adresse +
                 '}';
     }
 }

@@ -12,8 +12,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+<!--        <property name="hibernate.format_sql">true</property>-->
         <mapping class="ma.enset.Student"/>
         <mapping class="ma.enset.Enseignant" />
+        <mapping class="ma.enset.Adresse" />
     </session-factory>
 </hibernate-configuration>

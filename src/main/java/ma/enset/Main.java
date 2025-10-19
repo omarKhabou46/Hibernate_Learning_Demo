@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.TransactionSettings;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,25 +18,38 @@ public class Main {
     public static void main(String[] args) {
 
 
-        // Create Hibernate configuration
-        Configuration cf = new Configuration();
-        cf.configure("hibernate.cfg.xml");
+       Configuration configuration = new Configuration();
+       configuration.configure("hibernate.cfg.xml");
+       SessionFactory sessionFactory = configuration.buildSessionFactory();
+       Session session = sessionFactory.openSession();
+       Transaction transaction = session.beginTransaction();
 
-        // Create session factory
-        SessionFactory sf = cf.buildSessionFactory();
+       Enseignant ens = new Enseignant();
+       ens.setId(1);
+       ens.setName("omar");
+       ens.setLastName("khabou");
+       session.persist(ens);
 
-        // Create session
-        Session session = sf.openSession();
-//
-        Transaction transaction = session.beginTransaction();
-        Enseignant ens = new Enseignant();
-        ens.setId(3);
-        ens.setName("khalil");
-        ens.setLastName("lastName");
-        session.persist(ens);
-        transaction.commit();
-        session.close();
-        sf.close();
+       Enseignant ens1 = session.find(Enseignant.class, 1);
+       System.out.println(ens1);
+
+       Student student = session.find(Student.class, 2);
+       System.out.println(student);
+       Student student1 = session.find(Student.class, 2);
+       System.out.println(student1);
+
+       transaction.commit();
+       session.close();
+
+       // dexieme session
+       Session session2 = sessionFactory.openSession();
+       Student student2 = session2.find(Student.class, 2);
+       System.out.println(student2);
+       Enseignant ens2 = session2.find(Enseignant.class, 1);
+       System.out.println(ens2);
+
+       sessionFactory.close();
+
 
     }
 }

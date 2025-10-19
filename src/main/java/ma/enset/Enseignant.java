@@ -5,17 +5,10 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Enseignant {
-    @Override
-    public String toString() {
-        return "Enseignant{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
     @Id
     private int id;
+    private String name;
+    private String lastName;
 
     public int getId() {
         return id;
@@ -41,6 +34,12 @@ public class Enseignant {
         this.lastName = lastName;
     }
 
-    private String name;
-    private String lastName;
+    @Override
+    public String toString() {
+        return "Enseignant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }
